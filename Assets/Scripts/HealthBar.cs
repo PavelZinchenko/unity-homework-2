@@ -14,12 +14,11 @@ public class HealthBar : MonoBehaviour
     {
         _desiredValue = value.Percentage;
 
-        if (Mathf.Approximately(_slider.value, _desiredValue)) return;
-        if (_isCoroutineRunning) return;
-        StartCoroutine(AdjustHealthBar());
+        if (!_isCoroutineRunning)
+            StartCoroutine(ChangeSliderValue());
     }
 
-    private IEnumerator AdjustHealthBar()
+    private IEnumerator ChangeSliderValue()
     {
         if (_isCoroutineRunning) yield break;
         _isCoroutineRunning = true;
